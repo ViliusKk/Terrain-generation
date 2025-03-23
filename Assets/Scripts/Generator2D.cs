@@ -14,7 +14,9 @@ public class Generator2D : MonoBehaviour
     public float seed;
 
     [Header("Tiles")] 
-    public GameObject groundTile;
+    public GameObject grassTile;
+    public GameObject stoneTile;
+    public GameObject sandTile;
     public GameObject[] decorationTiles;
 
     [Header("Noise Settings")] 
@@ -51,10 +53,9 @@ public class Generator2D : MonoBehaviour
         {
             for (int x = 0; x < width; x++)
             {
-                if (grid[x, z] >= groundLimit)
-                {
-                    Instantiate(groundTile, new Vector3(x, 0, z), Quaternion.identity);
-                }
+                if (grid[x, z] > 0.3f && grid[x,z ] < 0.6f) Instantiate(sandTile, new Vector3(x, 0, z), Quaternion.identity);
+                else if (grid[x, z] > 0.6f && grid[x, z] < 0.9f)  Instantiate(stoneTile, new Vector3(x, 0, z), Quaternion.identity);
+                else Instantiate(grassTile, new Vector3(x, 0, z), Quaternion.identity);
             }
         }
     }
