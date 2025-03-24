@@ -50,8 +50,9 @@ public class Generator : MonoBehaviour
 
                 for (int y = height; y >= 0; y--)
                 {
-                    Instantiate(groundTile, new Vector3(x,y,z), Quaternion.identity);
+                    Instantiate(groundTile, new Vector3(x,height,z), Quaternion.identity);
                 }
+                Instantiate(groundTile, new Vector3(x, height-1, z), Quaternion.identity); // spawn one more layer for ground thickness
             }
         }
     }
