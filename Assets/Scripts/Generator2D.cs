@@ -53,9 +53,9 @@ public class Generator2D : MonoBehaviour
         {
             for (int x = 0; x < width; x++)
             {
-                if (grid[x, z] > 0.3f && grid[x,z ] < 0.6f) Instantiate(sandTile, new Vector3(x, 0, z), Quaternion.identity);
-                else if (grid[x, z] > 0.6f && grid[x, z] < 0.9f)  Instantiate(stoneTile, new Vector3(x, 0, z), Quaternion.identity);
-                else Instantiate(grassTile, new Vector3(x, 0, z), Quaternion.identity);
+                if (grid[x, z] > 0.5f && grid[x,z ] < 0.6f) Instantiate(sandTile, new Vector3(x, 0, z), Quaternion.identity);
+                else if (grid[x, z] > 0.6f && grid[x, z] < 0.7f)  Instantiate(stoneTile, new Vector3(x, 0, z), Quaternion.identity);
+                else if (grid[x, z] > 0.4f && grid[x, z] < 0.5f) Instantiate(grassTile, new Vector3(x, 0, z), Quaternion.identity);
             }
         }
     }
