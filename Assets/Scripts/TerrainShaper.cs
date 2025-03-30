@@ -12,6 +12,12 @@ public class TerrainShaper : MonoBehaviour
     private TerrainData terrainData;
     private int resolution;
     private float[,] map;
+    private float[,,] textureMap;
+    
+    private const int ROCK = 0;
+    private const int SAND = 1;
+    private const int GRASS = 2;
+    
     void Start()
     {
         terrain = GetComponent<Terrain>();
@@ -20,6 +26,7 @@ public class TerrainShaper : MonoBehaviour
         map = new float[resolution, resolution];
         
         ShapeTerrain();
+        PaintTerrain();
     }
 
     private void Update()
@@ -28,6 +35,7 @@ public class TerrainShaper : MonoBehaviour
         {
             ClearMap();
             ShapeTerrain();
+            PaintTerrain();
         }
     }
 
@@ -65,5 +73,32 @@ public class TerrainShaper : MonoBehaviour
                 map[x, z] = 0;
             }
         }
+    }
+
+    void PaintTerrain()
+    {
+        var height = terrainData.alphamapHeight;
+        var width = terrainData.alphamapWidth;
+        
+        textureMap = terrainData.GetAlphamaps(0, 0, width, height);
+
+        for (int y = 0; y < height; y++)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                // clear
+                textureMap[x, y, ROCK] = 0;
+                textureMap[x, y, SAND] = 0;
+                textureMap[x, y, GRASS] = 0;
+                
+                // apply texture by height
+                if(map[x, y] < 0.2f) textureMap[x, y, SAND] = 1;
+                else if (map[x, y] < 0.4f) textureMap[x, y, GRASS] = 1;
+                else textureMap[x, y, ROCK] = 1;
+            }
+        }
+        
+        terrainData.SetAlphamaps(0, 0, textureMap);
+        terrain.Flush();
     }
 }
