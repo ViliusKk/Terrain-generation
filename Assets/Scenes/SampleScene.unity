@@ -286,6 +286,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seed: 0
   scale: 200
+  octaves: 4
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
